@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./styles/projects.css";
 import ReactLoading from "react-loading";
 
@@ -6,32 +6,33 @@ export default function Projects() {
   const [projects, setProjects] = useState([]);
   const [actualProject, setActualProject] = useState(0);
   const [loading, setLoading] = useState(false);
+  const useEffectRan = useRef(false);
 
-  useEffect(() => {
-    async function fetchProjects() {
-      setLoading(true);
-      try {
-        const repo = "juliocesardemoraes";
-        const response = await fetch(
-          `https://api.github.com/users/${repo}/repos?page=1&per_page=100`
-        );
-        const data = await response.json();
-        let reposWithWebsite = [];
-        for (let i = 0; i < data.length; i++) {
-          if (data[i]?.homepage) reposWithWebsite.push(data[i]);
-        }
-        setProjects(reposWithWebsite);
-      } catch (error) {
-        console.log(error);
+  async function fetchProjects() {
+    setLoading(true);
+    try {
+      const repo = "juliocesardemoraes";
+      const response = await fetch(
+        `https://api.github.com/users/${repo}/repos?page=1&per_page=100`
+      );
+      const data = await response.json();
+      let reposWithWebsite = [];
+      for (let i = 0; i < data.length; i++) {
+        if (data[i]?.homepage) reposWithWebsite.push(data[i]);
       }
-      setLoading(false);
+      setProjects(reposWithWebsite);
+    } catch (error) {
+      console.log(error);
     }
-    fetchProjects();
-  }, []);
+  }
 
   useEffect(() => {
-    console.log(projects);
-  }, [projects]);
+    if (useEffectRan.current == false) {
+      fetchProjects();
+      useEffectRan.current = true;
+    }
+    setLoading(false);
+  }, []);
 
   // Não posso colocar um projeto acima do indice 12
   // Não posso colocar um número negativo
