@@ -18,7 +18,8 @@ export default function Projects() {
       const data = await response.json();
       let reposWithWebsite = [];
       for (let i = 0; i < data.length; i++) {
-        if (data[i]?.homepage) reposWithWebsite.push(data[i]);
+        if (data[i]?.homepage && !data[i]?.topics?.includes("backend"))
+          reposWithWebsite.push(data[i]);
       }
       setProjects(reposWithWebsite);
     } catch (error) {
