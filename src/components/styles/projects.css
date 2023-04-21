@@ -1,0 +1,44 @@
+.arrow {
+  width: 50px;
+}
+
+.gap {
+  display: flex;
+  gap: 2rem;
+}
+
+.project__content {
+  height: 75vh !important;
+}
+
+.project__container .flex__container {
+  padding: 0rem;
+}
+
+iframe {
+  height: 100%;
+  width: 75%;
+  border: 0px;
+  margin: 0px;
+  padding: 0px;
+}
+
+.desc {
+  width: 25%;
+  display: flex;
+  justify-content: center;
+}
+
+.project__container footer {
+  align-items: center;
+  height: calc(25vh - 1rem);
+  padding: 0.5rem !important;
+}
+
+.filter__white {
+  filter: brightness(0) saturate(100%) invert(100%) contrast(100%);
+}
+
+.w__100 {
+  width: 100% !important;
+}
